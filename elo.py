@@ -1,13 +1,6 @@
-# -*- coding: utf-8 -*-
-"""
-Spyder Editor
-
-This is a temporary script file.
-"""
-
 import pandas as pd
 #pd.set_option('display.max_columns', None)
-matches = pd.read_csv('/home/chyngyz/Desktop/tennis/match_scores_1991-2016_unindexed_csv.csv')
+matches = pd.read_csv('match_scores_1991-2016_unindexed_csv.csv')
 matches['year'] = matches['tourney_year_id'].str[:4]
 matches = matches.sort_values(by = ['year', 'tourney_order', 'round_order'], ascending = [True, True, False])
 
@@ -103,13 +96,21 @@ matches['w_elo'] = w_elo_vec
 matches['l_elo'] = l_elo_vec
 
 elo_max = matches.groupby(['winner_player_id'])['w_elo'].max().reset_index()
-elo_max = elo_max.merge(players_elo[['player_id', 'player_name']], left_on = 'winner_player_id', right_on = 'player_id', how = 'left')
 
+elo_max = elo_max.rename(columns={
+    'winner_player_id': 'player_id',
+    'w_elo': 'max_elo'
+})
 
+elo_max = elo_max.merge(
+    players_elo[['player_id', 'player_name']],
+    on='player_id',
+    how='left'
+)
 
+elo_max = elo_max.sort_values(
+    by='max_elo',
+    ascending=False
+).reset_index(drop=True)
 
-
-
-
-
-
+print(elo_max.head(20).to_string())

@@ -51,28 +51,28 @@ max_elo = elo.elo_max(
 ## Sample match-level Elo output
 
 ```text
-       winner_name            loser_name  winner_elo_before  loser_elo_before  winner_elo_after  loser_elo_after
-     Roger Federer Roberto Bautista Agut        2336.700518       2024.629081       2339.546247      2018.937621
-Jo-Wilfried Tsonga         Roger Federer        2129.295828       2339.546247       2144.702864      2324.139212
-     Roger Federer      Alexander Zverev        2324.139212       1875.160922       2325.542030      1872.355285
-     Dominic Thiem         Roger Federer        2022.876648       2325.542030       2056.915715      2308.522496
-     Roger Federer    Jan-Lennard Struff        2308.522496       1751.958375       2309.302925      1750.397517
+winner_name             loser_name              winner_elo_before  loser_elo_before  winner_elo_after  loser_elo_after
+Roger Federer           Roberto Bautista Agut             2336.70            2024.63           2339.55           2018.94
+Jo-Wilfried Tsonga      Roger Federer                     2129.30            2339.55           2144.70           2324.14
+Roger Federer           Alexander Zverev                  2324.14            1875.16           2325.54           1872.36
+Dominic Thiem           Roger Federer                     2022.88            2325.54           2056.92           2308.52
+Roger Federer           Jan-Lennard Struff                2308.52            1751.96           2309.30           1750.40
 ```
 
 ## Sample maximum Elo output
 
 ```text
-player_id      max_elo            player_name
-d643         2478.811170         Novak Djokovic
-n409         2406.871068           Rafael Nadal
-mc10         2403.243420            Andy Murray
-f324         2369.511314          Roger Federer
-d683         2256.000005  Juan Martin del Potro
-f401         2239.786477           David Ferrer
-w367         2217.797230          Stan Wawrinka
-n552         2209.618646          Kei Nishikori
-ba47         2193.427780          Tomas Berdych
-r975         2186.429946           Milos Raonic
+player_id  max_elo  player_name
+d643        2478.81  Novak Djokovic
+n409        2406.87  Rafael Nadal
+mc10        2403.24  Andy Murray
+f324        2369.51  Roger Federer
+d683        2256.00  Juan Martin del Potro
+f401        2239.79  David Ferrer
+w367        2217.80  Stan Wawrinka
+n552        2209.62  Kei Nishikori
+ba47        2193.43  Tomas Berdych
+r975        2186.43  Milos Raonic
 ```
 
 ## Development status

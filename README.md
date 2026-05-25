@@ -1,47 +1,80 @@
 # elo
 
-This project implements an Elo rating system in Python using the pandas library.
+Generic Elo rating system implementation in Python using the pandas library.
 
-The module calculates Elo ratings based on match results supplied in a dataset. The input data contains two main columns:
-- winner player ID
-- loser player ID
+The module calculates retrospective Elo ratings from match results supplied in a dataset. It is designed to work with any head-to-head competitive environment where participants compete against each other over time.
 
-The Elo rating system was originally developed by Hungarian-American physics professor Arpad Elo as a method for estimating the relative skill levels of players in competitive games and sports. Since then, it has become one of the most widely used rating systems across many competitive fields.
+The project currently provides two main functions:
 
-Although this prototype was tested on a historical tennis dataset, the algorithm can be applied to virtually any sport or competitive environment where participants compete head-to-head.
+- `elo()`  
+  Calculates Elo ratings before and after every match.
 
-## Development status
+- `elo_max()`  
+  Returns the maximum Elo rating ever achieved by each player.
 
-In development.  
-Working prototype completed and tested on the attached tennis dataset.
+Although the prototype was tested on a historical tennis dataset, the module is intentionally generic and can be applied to virtually any sport or competitive system.
+
+## Main features
+
+- Generic dataframe-based API
+- No hardcoded dataset structure
+- Optional chronological sorting
+- Configurable Elo parameters
+- Match-level Elo history
+- Maximum historical Elo summaries
 
 ## Technologies used
 
 - Python
 - pandas
 
-## Sample output
+## Example usage
+
+```python
+matches_with_elo = elo.elo(
+    df="match_scores_1991-2016_unindexed_csv.csv",
+    winner_col="winner_player_id",
+    loser_col="loser_player_id",
+    sort_cols=["tourney_year_id", "tourney_order", "round_order"],
+    ascending=[True, True, False]
+)
+
+max_elo = elo.elo_max(
+    df=matches_with_elo,
+    winner_col="winner_player_id",
+    loser_col="loser_player_id",
+    winner_name_col="winner_name",
+    loser_name_col="loser_name"
+)
+```
+
+## Sample match-level Elo output
 
 ```text
-   player_id      max_elo            player_name
-0       d643  2559.414106         Novak Djokovic
-1       mc10  2477.419772            Andy Murray
-2       n409  2472.676937           Rafael Nadal
-3       f324  2432.117534          Roger Federer
-4       n552  2375.928400          Kei Nishikori
-5       d683  2366.231193  Juan Martin del Potro
-6       w367  2347.226616          Stan Wawrinka
-7       r975  2336.578313           Milos Raonic
-8       f401  2336.525187           David Ferrer
-9       ba47  2329.581955          Tomas Berdych
-10      t786  2279.939178     Jo-Wilfried Tsonga
-11      c977  2269.593040            Marin Cilic
-12      mc65  2265.887853           Gael Monfils
-13      g628  2245.940898        Richard Gasquet
-14      sa49  2240.517980        Robin Soderling
-15      d875  2237.585846        Grigor Dimitrov
-16      d402  2236.262770      Nikolay Davydenko
-17      s402  2229.824505           Pete Sampras
-18      r485  2228.627384           Andy Roddick
-19      tb69  2228.411462          Dominic Thiem
+       winner_name            loser_name  winner_elo_before  loser_elo_before  winner_elo_after  loser_elo_after
+     Roger Federer Roberto Bautista Agut        2336.700518       2024.629081       2339.546247      2018.937621
+Jo-Wilfried Tsonga         Roger Federer        2129.295828       2339.546247       2144.702864      2324.139212
+     Roger Federer      Alexander Zverev        2324.139212       1875.160922       2325.542030      1872.355285
+     Dominic Thiem         Roger Federer        2022.876648       2325.542030       2056.915715      2308.522496
+     Roger Federer    Jan-Lennard Struff        2308.522496       1751.958375       2309.302925      1750.397517
 ```
+
+## Sample maximum Elo output
+
+```text
+player_id      max_elo            player_name
+d643         2478.811170         Novak Djokovic
+n409         2406.871068           Rafael Nadal
+mc10         2403.243420            Andy Murray
+f324         2369.511314          Roger Federer
+d683         2256.000005  Juan Martin del Potro
+f401         2239.786477           David Ferrer
+w367         2217.797230          Stan Wawrinka
+n552         2209.618646          Kei Nishikori
+ba47         2193.427780          Tomas Berdych
+r975         2186.429946           Milos Raonic
+```
+
+## Development status
+
+Working prototype completed and tested on a historical ATP tennis dataset.
